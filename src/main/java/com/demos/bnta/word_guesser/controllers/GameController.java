@@ -22,8 +22,19 @@ public class GameController {
     GameService gameService;
 
     @GetMapping
-    public ResponseEntity<List<Game>> getAllGames(){
-        List<Game> games = gameService.getAllGames();
+    public ResponseEntity<List<Game>> getAllGames(@RequestParam Optional<Boolean> isComplete, @RequestParam Optional<String> word){ // if its true,
+        // return completed games
+        // or give all games
+        List<Game> games;
+        if(isComplete.isPresent()){
+            games = gameService.getAllCompletedGames(); // if games are completed then get all games
+        }else if(word.isPresent()){
+            games = gameService.findGamesByWord(word.get()); // if there is a word then do a word.get--> you do .get because its optional datatype,
+            // so you need it
+
+        } else{
+            games = gameService.getAllGames(); // otherwise default to getting all games
+        }
         return new ResponseEntity<>(games, HttpStatus.OK);
     }
 

@@ -137,4 +137,25 @@ public class GameService {
         // optional allows us to retrieve the id if it exists instead of having to do if null return ... else return ...
         return gameRepository.findById(id);
     }
+    public List<Game> getAllCompletedGames(){
+//        //ToDo: create an empty list
+//        List<Game> completedGames = new ArrayList<>();
+//        //ToDo: find all games
+//        List<Game> allGames = getAllGames();
+//        //ToDo: loop through all games
+//        for(Game game : allGames){
+//            //ToDo: if a game has a completed prop of true, add it to empty list.
+//            if(game.isComplete()){
+//                completedGames.add(game);
+//            }
+//        }
+//        return completedGames; // can return a list of games that are completed
+
+        return gameRepository.findByCompleteTrue(); // by creating a derived query in the game repository,
+        // you can do all that above in one line.
+
+    }
+    public List<Game> findGamesByWord(String word){
+        return gameRepository.findByWord(word);
+    }
 }
